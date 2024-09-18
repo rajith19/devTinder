@@ -83,10 +83,13 @@ app.patch("/user/:userId", async (req, res) => {
         if (!isUpdateAllowed) {
             throw new Error("Update not allowed.");
         }
-        if (data?.skills?.length > 10) {
+        console.log(data.skills, Array.isArray(data.skills) , data.skills.every(skill => typeof skill === 'string'))
+        if (data?.skills?.length >= 10) {
             throw new Error("Skills must be less or equal to 10.");
         }
-        const user = await User.findByIdAndUpdate(userId, data);
+        const user = await User.findByIdAndUpdate(userId, data,{
+            runValidators : true
+        });
         console.log(user);
         res.send("User updated successfully.")
     } catch (err) {
