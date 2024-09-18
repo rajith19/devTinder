@@ -7,13 +7,6 @@ app.get("/user", (req, res) => {
 
 })
 
-// these will match all HTTP method API calls to /test
-app.use("/test", (req, res) => {
-    res.send("Hello testing!");
-});
-app.use("/hello", (req, res) => {
-    res.send("Hello only!");
-});
 
 app.listen(3000, () => {
     console.log("server started successfully on port 3000...");
