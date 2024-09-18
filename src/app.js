@@ -1,9 +1,13 @@
 const express = require('express');
 const app = express();
 
-app.use("/", (req, res) => {
-    res.send("hello!");
-});
+// This will only match GET call to /user
+app.get("/user", (req, res) => {
+    res.send({"firstName" : "Rajith", "lastname" : "Gopal"});
+
+})
+
+// these will match all HTTP method API calls to /test
 app.use("/test", (req, res) => {
     res.send("Hello testing!");
 });
