@@ -5,6 +5,8 @@ const connectDB = require("./config/database")
 const app = express();
 const User = require("./models/user");
 const user = require('./models/user');
+const { validateSignUpData } = require("./utils/validation")
+const bcrypt = require("bcrypt")
 
 // it parses incoming HTTP request from the body
 app.use(express.json());
@@ -46,9 +48,22 @@ app.get("/feed", async (req, res) => {
 
 // signup users
 app.post("/signup", async (req, res) => {
-
-    const user = new User(req.body);
     try {
+        // validation of data
+        validateSignUpData(req);
+
+        const { firstName, lastName, emailId, password } = req.body;
+        // Encrypt password using bcrypt
+        const passwordHash = await bcrypt.hash(password, 10);
+
+        // Creating intance of the new User model
+        const user = new User({
+            firstName,
+            lastName,
+            emailId,
+            password: passwordHash
+        });
+
         await user.save();
         res.send("User added successfully!")
     } catch (err) {
@@ -56,7 +71,7 @@ app.post("/signup", async (req, res) => {
         if (err.code === 11000) {  // 11000 is the error code for duplicate key error in MongoDB
             res.status(400).send("Email already exists!");
         } else {
-            res.status(400).send("Something went wrong :" + err.message);
+            res.status(400).send("Error :" + err.message);
         }
     }
 
@@ -83,12 +98,12 @@ app.patch("/user/:userId", async (req, res) => {
         if (!isUpdateAllowed) {
             throw new Error("Update not allowed.");
         }
-        console.log(data.skills, Array.isArray(data.skills) , data.skills.every(skill => typeof skill === 'string'))
+        console.log(data.skills, Array.isArray(data.skills), data.skills.every(skill => typeof skill === 'string'))
         if (data?.skills?.length >= 10) {
             throw new Error("Skills must be less or equal to 10.");
         }
-        const user = await User.findByIdAndUpdate(userId, data,{
-            runValidators : true
+        const user = await User.findByIdAndUpdate(userId, data, {
+            runValidators: true
         });
         console.log(user);
         res.send("User updated successfully.")
