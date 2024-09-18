@@ -13,7 +13,7 @@ app.get("/getUserData", (req, res) => {
     }
 })
 
-// error handling should added in the end but make sure try catch is used in every route handlers
+// error handling should be added in the end but make sure try catch is used in every route handlers
 app.use("/", (err, req, res, next) => {
     if (err) {
         //log your error
