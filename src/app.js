@@ -6,8 +6,12 @@ const app = express();
 
 
 app.get("/getUserData", (req, res) => {
-    throw new error("simply an error");
-    res.send("User data sent")
+    try {
+        throw new error("simply an error");
+        res.send("User data sent")
+    } catch (err) {
+        res.status(500).send("Something went wrong, Contact support");
+    }
 })
 
 // error handling should added in the end but make sure try catch is used in every route handlers
