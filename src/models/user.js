@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator")
 
 
 const userSchema = new mongoose.Schema({
@@ -20,7 +21,12 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
         lowercase: true,
-        trim: true
+        trim: true,
+        validate(value) {
+            if (!validator.isEmail(value)) {
+                throw new Error("Invalid email added : " + value)
+            }
+        }
     },
     password: {
         type: String,
@@ -49,11 +55,11 @@ const userSchema = new mongoose.Schema({
     },
     skills: {
         type: [String],
-        validate : {
-            validator : function(v){
-                return Array.isArray(v) && v.every(skill => typeof skill === 'string');
-            },
-            message : 'Skills must be an array of strings.'
+        validate(value) {
+            if (Array.isArray(value) && value.every(skill => typeof skill === 'string')) {
+                throw new Error("Skills must be an array of strings.")
+            }
+
         }
     }
 }, {
