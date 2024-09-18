@@ -22,7 +22,7 @@ app.get("/user", async (req, res) => {
         }
 
     } catch (err) {
-        res.status(400).send("Error getting users : " + err.message);
+        res.status(400).send("Something went wrong :" + err.message);
     }
 
 })
@@ -39,7 +39,7 @@ app.get("/feed", async (req, res) => {
         }
 
     } catch (err) {
-        res.status(400).send("Error getting users" + err.message);
+        res.status(400).send("Something went wrong :" + err.message);
     }
 
 })
@@ -52,11 +52,51 @@ app.post("/signup", async (req, res) => {
         await user.save();
         res.send("User added successfully!")
     } catch (err) {
-        res.status(400).send("Error saving user : " + err.message);
+        // Duplicate email error
+    if (err.code === 11000) {  // 11000 is the error code for duplicate key error in MongoDB
+        res.status(400).send("Email already exists!");
+      } else {
+          res.status(400).send("Something went wrong :" + err.message);
+      }
     }
 
 })
 
+//  delete user
+app.delete("/user", async (req, res) => {
+    const userId = req.body.userId;
+    try {
+        const user = await User.findByIdAndDelete(userId);
+        res.send("User deleted successfully");
+    } catch (err) {
+        res.status(400).send("Something went wrong : " + err.message);
+    }
+})
+
+// update users
+app.patch("/user", async (req, res) => {
+    const userId = req.body.userId;
+    const data = req.body;
+    try {
+        const user = await User.findByIdAndUpdate(userId , data);
+        res.send("User updated successfully")
+    } catch (err) {
+        res.status(400).send("Something went wrong : " + err.message);
+    }
+})
+
+// update users using emailId
+app.patch("/userEmail", async (req, res) => {
+
+    const emailId = req.body.emailId;
+    const data = req.body;
+    try {
+        const user = await User.findOneAndUpdate({emailId : emailId}, {firstName : data.firstName});
+        res.send("User updated successfully")
+    } catch (err) {
+        res.status(400).send("Something went wrong : " + err.message);
+    }
+})
 
 connectDB().then(() => {
     console.log("Database connection established...");
