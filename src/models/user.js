@@ -3,14 +3,63 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
     firstName: {
+        type: String,
+        required: true,
+        minLength: 4,
+        maxLength: 50,
+        trim: true
+    },
+    lastName: {
+        type: String,
+        minLength: 2,
+        maxLength: 50,
+        trim: true
+    },
+    emailId: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true
+    },
+    password: {
+        type: String,
+        required: true,
+        minLength: 6,
+        maxLength: 18,
+        trim: true
+    },
+    age: {
+        type: Number,
+        min: 18
+    },
+    gender: {
         type: String
     },
-    lastName: String,
-    emailId: String,
-    password: String,
-    age: Number,
-    gender: String
-})
+    photoUrl: {
+        type: String,
+        default: "https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg"
+    },
+    about: {
+        type: String,
+        default: "This is default description about user",
+        minLength: 30,
+        maxLength: 100,
+        trim: true
+    },
+    skills: {
+        type: [String],
+        validate : {
+            validator : function(v){
+                return Array.isArray(v) && v.every(skill => typeof skill === 'string');
+            },
+            message : 'Skills must be an array of strings.'
+        }
+    }
+}, {
+    timestamps: true
+}
+)
 
 
 module.exports = mongoose.model("User", userSchema);
