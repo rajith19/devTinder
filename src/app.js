@@ -4,7 +4,6 @@ const express = require('express');
 // Initialize the Express application
 const app = express();
 
-
 app.get("/getUserData", (req, res) => {
     try {
         throw new error("simply an error");
