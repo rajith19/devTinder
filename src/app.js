@@ -53,11 +53,11 @@ app.post("/signup", async (req, res) => {
         res.send("User added successfully!")
     } catch (err) {
         // Duplicate email error
-    if (err.code === 11000) {  // 11000 is the error code for duplicate key error in MongoDB
-        res.status(400).send("Email already exists!");
-      } else {
-          res.status(400).send("Something went wrong :" + err.message);
-      }
+        if (err.code === 11000) {  // 11000 is the error code for duplicate key error in MongoDB
+            res.status(400).send("Email already exists!");
+        } else {
+            res.status(400).send("Something went wrong :" + err.message);
+        }
     }
 
 })
@@ -74,12 +74,21 @@ app.delete("/user", async (req, res) => {
 })
 
 // update users
-app.patch("/user", async (req, res) => {
-    const userId = req.body.userId;
+app.patch("/user/:userId", async (req, res) => {
+    const userId = req.params?.userId;
     const data = req.body;
     try {
-        const user = await User.findByIdAndUpdate(userId , data);
-        res.send("User updated successfully")
+        const ALLOWED_UPDATES = ["photoUrl", "about", "gender", "age", "skills"];
+        const isUpdateAllowed = Object.keys(data).every(k => ALLOWED_UPDATES.includes(k));
+        if (!isUpdateAllowed) {
+            throw new Error("Update not allowed.");
+        }
+        if (data?.skills?.length > 10) {
+            throw new Error("Skills must be less or equal to 10.");
+        }
+        const user = await User.findByIdAndUpdate(userId, data);
+        console.log(user);
+        res.send("User updated successfully.")
     } catch (err) {
         res.status(400).send("Something went wrong : " + err.message);
     }
@@ -91,7 +100,7 @@ app.patch("/userEmail", async (req, res) => {
     const emailId = req.body.emailId;
     const data = req.body;
     try {
-        const user = await User.findOneAndUpdate({emailId : emailId}, {firstName : data.firstName});
+        const user = await User.findOneAndUpdate({ emailId: emailId }, { firstName: data.firstName });
         res.send("User updated successfully")
     } catch (err) {
         res.status(400).send("Something went wrong : " + err.message);
