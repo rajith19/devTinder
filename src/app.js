@@ -20,8 +20,8 @@ app.get("/user/login", (req, res) => {
     res.send("Login User")
 })
 
-app.use("/user", userAuth, (req, res) => {
-    res.send("User requested")
+app.use("/user/data", userAuth, (req, res) => {
+    res.send("User data sent")
 })
 
 // Start the server and listen on port 3000 for incoming connections
