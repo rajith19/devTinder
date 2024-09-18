@@ -44,8 +44,7 @@ The application follows the standard CRUD operations on resources:
   ├── routes         # API routes (auth, profile, connection requests)
   ├── controllers    # Functions to handle logic for each route
   └── server.js      # Entry point for the server
-  
-<!-- 
+
 /frontend
   ├── src
       ├── components # React components (Profile, Dashboard, etc.)
@@ -54,7 +53,7 @@ The application follows the standard CRUD operations on resources:
       └── App.js     # Main React app file
 ```
 
-## Technologies Used
+<!-- ## Technologies Used
 
 ### Backend:
 - **Node.js**: JavaScript runtime for the backend.
