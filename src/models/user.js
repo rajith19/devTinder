@@ -33,7 +33,12 @@ const userSchema = new mongoose.Schema({
         required: true,
         minLength: 6,
         maxLength: 18,
-        trim: true
+        trim: true,
+        validate(value) {
+            if (!validator.isStrongPassword(value)) {
+                throw new Error("Enter valid passowrd : " + value)
+            }
+        }
     },
     age: {
         type: Number,
@@ -44,7 +49,12 @@ const userSchema = new mongoose.Schema({
     },
     photoUrl: {
         type: String,
-        default: "https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg"
+        default: "https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg",
+        validate(value) {
+            if (!validator.isURL(value)) {
+                throw new Error("Invalid URL added : " + value)
+            }
+        }
     },
     about: {
         type: String,
@@ -56,7 +66,7 @@ const userSchema = new mongoose.Schema({
     skills: {
         type: [String],
         validate(value) {
-            if (Array.isArray(value) && value.every(skill => typeof skill === 'string')) {
+            if (!Array.isArray(value) && !value.every(skill => typeof skill === 'string')) {
                 throw new Error("Skills must be an array of strings.")
             }
 
