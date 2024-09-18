@@ -4,24 +4,19 @@ const express = require('express');
 // Initialize the Express application
 const app = express();
 
-const { adminAuth, userAuth } = require("./middlewares/auth")
 
-app.use("/admin", adminAuth)
-
-app.use("/admin/getAllData", (req, res) => {
-    res.send("All data sent");
-})
-
-app.use("/admin/deletAllData", (req, res) => {
-    res.send("Deleted a admin")
-})
-
-app.get("/user/login", (req, res) => {
-    res.send("Login User")
-})
-
-app.use("/user/data", userAuth, (req, res) => {
+app.get("/getUserData", (req, res) => {
+    throw new error("simply an error");
     res.send("User data sent")
+})
+
+// error handling should added in the end but make sure try catch is used in every route handlers
+app.use("/", (err, req, res, next) => {
+    if (err) {
+        //log your error
+        res.status(500).send("Something went wrong")
+    }
+
 })
 
 // Start the server and listen on port 3000 for incoming connections
