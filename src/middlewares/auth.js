@@ -1,37 +1,31 @@
-// Import the express library to create an Express app
-const express = require('express');
+const jwt = require("jsonwebtoken");
+const User = require("../models/user")
 
-// Initialize the Express application
-const app = express();
+const userAuth = async (req, res, next) => {
+    try {
+        // read the cookied from the req
+        const cookies = req.cookies;
+        // validate the token
+        const { token } = cookies;
+        if (!token) {
+            throw new Error("Invalid token!!")
+        }
+        const decodeObj = await jwt.verify(token, "RAJ@TINDER")
+        const { _id } = decodeObj;
 
-
-
-const adminAuth = app.use("/admin", (req, res) => {
-    console.log("Authorizing admin...");
-    const token = "xyz";
-    const isAdminAuthorized = token === "xyz";
-    if (!isAdminAuthorized) {
-        res.status(401).send("Unauthorized request")
-    } else {
+        // find the user by id
+        const user = await User.findById(_id);
+        if (!user) {
+            throw new Error("User does not exits");
+        }
+        req.user = user;
         next();
+    } catch (err) {
+        res.status(400).send("Error : " + err.message)
     }
 
-})
-
-const userAuth = app.use("/user", (req, res) => {
-    console.log("Authorizing user...");
-    const token = "xyz";
-    const isAdminAuthorized = token === "xyz";
-    if (!isAdminAuthorized) {
-        res.status(401).send("Unauthorized request")
-    } else {
-        next();
-    }
-
-})
-
+}
 
 module.exports = {
-    adminAuth,
     userAuth
 }
