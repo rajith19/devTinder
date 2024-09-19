@@ -16,9 +16,8 @@ const profileRouter = require("./routes/profile");
 const requestsRouter = require("./routes/requests");
 
 app.use("/", authRouter);
-app.use("/", profileRouter);
-app.use("/", requestsRouter);
-
+app.use("/profile", profileRouter);
+app.use("/requests", requestsRouter);
 
 
 
