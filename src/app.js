@@ -19,8 +19,6 @@ app.use("/", authRouter);
 app.use("/profile", profileRouter);
 app.use("/requests", requestsRouter);
 
-
-
 connectDB().then(() => {
     console.log("Database connection established...");
     // Start the server and listen on port 3000 for incoming connections

@@ -60,7 +60,7 @@ const userSchema = new mongoose.Schema({
     about: {
         type: String,
         default: "This is default description about user",
-        minLength: 30,
+        minLength: 10,
         maxLength: 100,
         trim: true
     },
