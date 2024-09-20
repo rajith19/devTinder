@@ -3,7 +3,8 @@ const express = require('express');
 const connectDB = require("./config/database")
 // Initialize the Express application
 const app = express();
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
+require('dotenv').config();
 
 // it parses incoming HTTP request from the body
 app.use(express.json());
@@ -24,8 +25,8 @@ app.use("/", userRouter);
 connectDB().then(() => {
     console.log("Database connection established...");
     // Start the server and listen on port 3000 for incoming connections
-    app.listen(3000, () => {
-        console.log("server started successfully on port 3000...");
+    app.listen(process.env.PORT, () => {
+        console.log(`server started successfully on port ${process.env.PORT}...`);
     });
 }).catch(err => {
     console.log("error in establising connection")
