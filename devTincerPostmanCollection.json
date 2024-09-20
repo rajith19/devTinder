@@ -1,0 +1,367 @@
+{
+	"info": {
+		"_postman_id": "660f2c05-cc83-4dd5-b3cb-ecd035b5b40a",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11456213"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Akshay\",\r\n    \"lastName\": \"saini\",\r\n    \"emailId\": \"Akshay@gmail.com\",\r\n    \"password\": \"Akshay@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailId\" : \"Rajith@gmail.com\",\r\n    \"password\" : \"Rajith@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Connection Requests",
+			"item": [
+				{
+					"name": "request/send/interested",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/request/send/interested/66eb892b60c66dde91ddd8ab",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"request",
+								"send",
+								"interested",
+								"66eb892b60c66dde91ddd8ab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request/send/ignored",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/request/send/ignored/66eb892b60c66dde91ddd8ab",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"request",
+								"send",
+								"ignored",
+								"66eb892b60c66dde91ddd8ab"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Connection Review",
+			"item": [
+				{
+					"name": "request/review/accepted",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/request/review/accepted/66ecc4de6ec2f826f748d17e",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"request",
+								"review",
+								"accepted",
+								"66ecc4de6ec2f826f748d17e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request/review/rejected",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/request/review/rejected/66ecc4c66ec2f826f748d177",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"request",
+								"review",
+								"rejected",
+								"66ecc4c66ec2f826f748d177"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/profile/view",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profile",
+								"view"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile/edit",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"age\": 31,\r\n    \"photoUrl\": \"https://avatars.githubusercontent.com/u/19857866?v=4\",\r\n    \"about\": \"This is about me\",\r\n    \"gender\": \"male\",\r\n    \"skills\": [\r\n        \"javascript\",\r\n        \"react\",\r\n        \"nodejs\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/profile/edit",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profile",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile/password",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"Akshay@098\",\r\n    \"newPassword\": \"Akshay@123\",\r\n    \"confirmPassword\": \"Akshay@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/profile/password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profile",
+								"password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Requests",
+			"item": [
+				{
+					"name": "user/requests/received",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/user/requests/received",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"requests",
+								"received"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user/requests/ignored",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/user/requests/ignored",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"requests",
+								"ignored"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user/requests/connected",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/user/requests/connected",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"requests",
+								"connected"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "feed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/feed?limit=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"feed"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
