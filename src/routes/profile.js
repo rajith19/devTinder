@@ -5,7 +5,7 @@ const { validateEditProfileData } = require("../utils/validation")
 const validatePassword = require("../models/user");
 const bcrypt = require("bcrypt");
 
-profileRouter.get("/view", userAuth, async (req, res) => {
+profileRouter.get("/profile/view", userAuth, async (req, res) => {
     try {
         res.send([req.user]);
     }
@@ -14,7 +14,7 @@ profileRouter.get("/view", userAuth, async (req, res) => {
     }
 })
 
-profileRouter.patch("/edit", userAuth, async (req, res) => {
+profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
     try {
         if (!validateEditProfileData(req)) {
             throw new Error("Invalid Requests!");
@@ -35,7 +35,7 @@ profileRouter.patch("/edit", userAuth, async (req, res) => {
 })
 
 
-profileRouter.patch("/password", userAuth, async (req, res) => {
+profileRouter.patch("/profile/password", userAuth, async (req, res) => {
     try {
         const { currentPassword, newPassword, confirmPassword } = req.body;
         // Check if newPassword and confirmPassword match
