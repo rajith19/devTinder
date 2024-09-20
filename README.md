@@ -55,8 +55,9 @@ You can find the source code for the project here:
 3. **Set up environment variables**:
    Create a `.env` file in the `backend` directory and add your MongoDB URI and other configurations:
    ```
-   MONGO_URI=mongodb://localhost:27017/devtinder
+   MONGO_URI=mongodb://<username>:<password>/devtinder
    JWT_SECRET=your_jwt_secret
+   PORT=your_port_number
    ```
 
 4. **Run the backend server**:
