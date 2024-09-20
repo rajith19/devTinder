@@ -63,14 +63,15 @@ requestsRouter.post("/request/review/:status/:requestId", userAuth, async (req, 
             _id: requestId,
             toUserId: loggedInUser._id,
             status: "interested"
-        })
+        }).populate("fromUserId", "firstName");
+
         if (!connectionRequest) {
             return res.status(400).json({ message: `Connection request is not found!` })
         }
         connectionRequest.status = status;
         const data = await connectionRequest.save();
         res.json({
-            message: `Connection is ${status}`,
+            message: `${data.fromUserId.firstName}'s Connection is ${status}`,
             data
         })
 
