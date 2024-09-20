@@ -7,7 +7,6 @@ const User = require("../models/user");
 
 requestsRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res) => {
     try {
-        console.log("inside")
         const fromUserId = req.user._id;
         const toUserId = req.params.toUserId;
         const status = req.params.status;
@@ -41,9 +40,39 @@ requestsRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res
         })
         const data = await connectionRequest.save();
         res.json({
-            message: `Connection sent sucessfully!`,
+            message: `${req.user.firstName} ${status} ${toUser.firstName}`,
             data
         });
+
+
+    } catch (err) {
+        res.status(400).send(`Error : ${err.message}`);
+    }
+})
+
+
+requestsRouter.post("/request/review/:status/:requestId", userAuth, async (req, res) => {
+    try {
+        const loggedInUser = req.user;
+        const { status, requestId } = req.params;
+        const allowedStatus = ["accepted", "rejected"];
+        if (!allowedStatus.includes(status)) {
+            return res.status(400).json({ message: `Status is not allowed` })
+        }
+        const connectionRequest = await ConnectionRequest.findOne({
+            _id: requestId,
+            toUserId: loggedInUser._id,
+            status: "interested"
+        })
+        if (!connectionRequest) {
+            return res.status(400).json({ message: `Connection request is not found!` })
+        }
+        connectionRequest.status = status;
+        const data = await connectionRequest.save();
+        res.json({
+            message: `Connection is ${status}`,
+            data
+        })
 
 
     } catch (err) {
