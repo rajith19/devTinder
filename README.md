@@ -1,177 +1,115 @@
-# Dev Tinder
+## DevTinder - MERN Stack Application
 
-Dev Tinder is a social networking platform for developers to connect, collaborate, and engage with one another. This project is built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js). Users can create profiles, send connection requests, and accept or reject collaboration requests, similar to a developer version of Tinder for professional networking.
+**DevTinder** is a MERN stack project designed for developers to connect and interact with each other. The project is structured into two main parts: the **backend** API (Node.js/Express) and the **frontend** (React.js) that interacts with the API.
 
-## Features
-
-- **User Authentication**:
-  - Signup and Login using JWT-based authentication.
-  
-- **Profile Management**:
-  - Users can create, view, update, and delete their profiles.
-  - Each profile includes developer details like name, bio, skills, and interests.
-  
-- **Connection Requests**:
-  - Users can send connection requests to other developers.
-  - They can accept or reject connection requests.
-  - Request status: interested, accepted, or rejected.
-
-- **Friend Connections**:
-  - View all pending requests and established connections.
-
-## CRUD Operations
-
-The application follows the standard CRUD operations on resources:
-
-| HTTP Method | Endpoint              | Description                         |
-|-------------|-----------------------|-------------------------------------|
-| **POST**    | `/signup`             | Create a new user                   |
-| **POST**    | `/login`              | Log in as an existing user          |
-| **GET**     | `/profile`            | View the current user's profile     |
-| **POST**    | `/profile`            | Create a new profile for the user   |
-| **PATCH**   | `/profile`            | Update the user's profile           |
-| **DELETE**  | `/profile`            | Delete the user's profile           |
-| **POST**    | `/sendRequest`        | Send a connection request           |
-| **POST**    | `/reviewRequest`      | Accept/Reject a connection request  |
-| **GET**     | `/requests`           | View all connection requests        |
-| **GET**     | `/connections`        | View all established connections    |
-
-## Project Structure
-
+### Project Structure
 ```
-/backend
-  ├── models         # Database schemas (User, Profile, etc.)
-  ├── routes         # API routes (auth, profile, connection requests)
-  ├── controllers    # Functions to handle logic for each route
-  └── server.js      # Entry point for the server
-
-/frontend
-  ├── src
-      ├── components # React components (Profile, Dashboard, etc.)
-      ├── pages      # Main pages (Signup, Login, Profile)
-      ├── services   # API calls (Axios for HTTP requests)
-      └── App.js     # Main React app file
+devTinder/
+├── backend/              # Backend API built with Node.js, Express, and MongoDB
+│   ├── src/
+│   │   ├── config/         # Database configuration and environment settings
+│   │   ├── middlewares/    # Authentication and other middlewares
+│   │   ├── models/         # Mongoose schemas and models (User, ConnectionRequest)
+│   │   ├── routes/         # API routes for auth, profile, and requests
+│   │   └── utils/          # Custom utility functions like validation
+│   └── app.js             # Express app entry point
+│
+└── frontend/             # Frontend built with React.js
+    ├── src/
+    │   ├── components/     # React components (Profile, Feed, Requests)
+    │   ├── services/       # API services to interact with the backend
+    │   └── App.js          # Main React app
+    └── package.json       # Frontend dependencies and scripts
 ```
 
-<!-- ## Technologies Used
+### Features
+1. **User Authentication**: 
+   - JWT-based authentication for secure access (backend).
+   - Login and signup pages for users (frontend).
+2. **Connection Requests**: 
+   - Users can send, accept, and reject connection requests.
+3. **User Profiles**: 
+   - Users can view and edit their profiles.
+4. **Feed**: 
+   - Discover and connect with other users via the user feed.
+5. **Pagination**: 
+   - Pagination for feed data from the backend.
 
-### Backend:
-- **Node.js**: JavaScript runtime for the backend.
-- **Express.js**: Web framework for building the RESTful APIs.
-- **MongoDB**: NoSQL database for storing user profiles and connection requests.
-- **Mongoose**: ODM library for MongoDB and schema validation.
-- **JWT (JSON Web Tokens)**: Used for user authentication and securing API endpoints.
+### GitHub Repository
 
-### Frontend:
-- **React.js**: JavaScript library for building the user interface.
-- **Axios**: HTTP client for making requests to the backend.
-- **Bootstrap/Tailwind CSS**: CSS framework for styling the front-end components.
+You can find the source code for the project here:  
+[**DevTinder Repository**](https://github.com/rajith19/devTinder)
 
-### Other Tools:
-- **Git**: Version control.
-- **Postman**: API testing.
-- **Heroku/Netlify**: Deployment platform.
+### Backend Installation and Setup (Node.js/Express/MongoDB)
 
-## Getting Started
+1. **Navigate to the backend folder**:
+   ```bash
+   cd backend
+   ```
 
-### Prerequisites
-- **Node.js** installed on your local machine
-- **MongoDB** installed locally or a cloud MongoDB instance (MongoDB Atlas)
-- **npm** or **yarn** package manager
+2. **Install backend dependencies**:
+   ```bash
+   npm install
+   ```
 
-### Installation
+3. **Set up environment variables**:
+   Create a `.env` file in the `backend` directory and add your MongoDB URI and other configurations:
+   ```
+   MONGO_URI=mongodb://localhost:27017/devtinder
+   JWT_SECRET=your_jwt_secret
+   ```
 
-1. Clone the repository:
+4. **Run the backend server**:
+   ```bash
+   npm start
+   ```
 
-```bash
-git clone https://github.com/yourusername/dev-tinder.git
-cd dev-tinder
-```
+The backend server will be available on `http://localhost:3000`.
 
-2. Install dependencies for both backend and frontend:
+### Frontend Installation and Setup (React.js)
 
-```bash
-# For backend
-cd backend
-npm install
+1. **Navigate to the frontend folder**:
+   ```bash
+   cd frontend
+   ```
 
-# For frontend
-cd frontend
-npm install
-```
+2. **Install frontend dependencies**:
+   ```bash
+   npm install
+   ```
 
-3. Create a `.env` file in the backend directory and add the following environment variables:
+3. **Start the React development server**:
+   ```bash
+   npm start
+   ```
 
-```bash
-MONGO_URI=your-mongodb-connection-string
-JWT_SECRET=your-secret-key
-PORT=3000
-```
+The frontend server will be available on `http://localhost:3001` (or another port if specified).
 
-4. Run the application:
+### API Endpoints (Backend)
 
-```bash
-# Backend
-cd backend
-npm start
+#### Auth Routes
+- **POST** `/signup`: Registers a new user.
+- **POST** `/login`: Authenticates a user and returns a JWT.
+- **POST** `/logout`: Logs out the user.
 
-# Frontend
-cd frontend
-npm start
-```
+#### Profile Routes
+- **GET** `/profile`: Retrieves the authenticated user's profile.
+- **PATCH** `/profile/edit`: Updates the authenticated user's profile.
+- **PATCH** `/profile/password`: Changes the password for the authenticated user.
 
-## API Endpoints
+#### Connection Requests
+- **POST** `/request/send/:status/:toUserId`: Sends a connection request to another user. Status can be `interested` or `ignored`.
+- **POST** `/request/review/accepted`: Reviews and accepts a connection request.
+- **POST** `/request/review/rejected`: Reviews and rejects a connection request.
 
-### Signup
+#### Feed
+- **GET** `/feed?page=1&limit=10`: Retrieves a paginated feed of users for discovery and potential connection.
 
-- **POST** `/signup`
-- Request body:
-  ```json
-  {
-    "email": "developer@example.com",
-    "password": "yourpassword",
-    "name": "John Doe"
-  }
-  ```
-- Response:
-  ```json
-  {
-    "token": "JWT_TOKEN"
-  }
-  ```
 
-### Login
+### Contributing
 
-- **POST** `/login`
-- Request body:
-  ```json
-  {
-    "email": "developer@example.com",
-    "password": "yourpassword"
-  }
-  ```
-- Response:
-  ```json
-  {
-    "token": "JWT_TOKEN"
-  }
-  ```
-
-### Send Connection Request
-
-- **POST** `/sendRequest`
-- Request body:
-  ```json
-  {
-    "toUserId": "userID_to_send_request"
-  }
-  ```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/new-feature`)
-3. Commit your changes (`git commit -m 'Add new feature'`)
-4. Push to the branch (`git push origin feature/new-feature`)
-5. Open a pull request
- -->
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature/new-feature`).
+3. Commit your changes (`git commit -m 'Add new feature'`).
+4. Push to the branch (`git push origin feature/new-feature`).
+5. Open a pull request.
