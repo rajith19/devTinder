@@ -98,14 +98,14 @@ The frontend server will be available on `http://localhost:3001` (or another por
 - **PATCH** `/profile/edit`: Updates the authenticated user's profile.
 - **PATCH** `/profile/password`: Changes the password for the authenticated user.
 
-#### Connection Requests
+#### Connection Requests and Review
 - **POST** `/request/send/:status/:toUserId`: Sends a connection request to another user. Status can be `interested` or `ignored`.
-- **POST** `/request/review/accepted`: Reviews and accepts a connection request.
-- **POST** `/request/review/rejected`: Reviews and rejects a connection request.
+- **POST** `/request/review/:status/:requestId`: Reviews and accepts/rejects a connection request. status can be `accepted` or `rejected`
 
 #### Feed
 - **GET** `/feed?page=1&limit=10`: Retrieves a paginated feed of users for discovery and potential connection.
-
+- **GET** `/user/requests/received`  : Retrieves all received connection requests.
+- **GET** `/user/requests/connected`  :  Retrieves all connected users.
 
 ### Contributing
 
