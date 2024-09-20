@@ -26,7 +26,7 @@ userRouter.get("/user/requests/received", userAuth, async (req, res) => {
         })
 
     } catch (err) {
-        req.status(400).send(`Error : ${err.message}`)
+        res.status(400).send(`Error : ${err.message}`)
     }
 })
 
@@ -97,7 +97,7 @@ userRouter.get("/user/requests/connected", userAuth, async (req, res) => {
 
 
     } catch (err) {
-        req.status(400).send(`Error : ${err.message}`)
+        res.status(400).send(`Error : ${err.message}`)
     }
 })
 
