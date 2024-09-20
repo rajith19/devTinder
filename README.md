@@ -86,7 +86,7 @@ The backend server will be available on `http://localhost:3000`.
 
 The frontend server will be available on `http://localhost:3001` (or another port if specified).
 
-### API Endpoints (Backend)
+### API Endpoints (Backend, also attached postman collection JSON file for API reference)
 
 #### Auth Routes
 - **POST** `/signup`: Registers a new user.
